@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Data & Models (tracked via DVC or generated)
+data/processed/
+data/raw/
+models/*.joblib
+mlruns/
+mlflow.db
+.dvc/cache/
+.dvc/tmp/
+
+# Large CSV files (not for git)
+train-test.csv
+validation.csv
+validation-predictions-template.csv
+
+# Scorer outputs
+scorer_results/
+
+# CatBoost training cache
+catboost_info/
+
+# Environment & IDE
+.env
+.venv
+venv/
+ENV/
+.vscode/
+.idea/
+.gemini/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Office temp files
+~$*

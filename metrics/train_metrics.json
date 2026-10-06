@@ -1,0 +1,35 @@
+{
+    "best_model": "CatBoost",
+    "best_validation_mae": 133.4888,
+    "metrics_by_model": {
+        "Ridge": {
+            "MAE": 157.4098,
+            "RMSE": 617.1938,
+            "R2": 0.831,
+            "MedAE": 76.4024,
+            "MAPE": 8.3748
+        },
+        "XGBoost": {
+            "MAE": 242.517,
+            "RMSE": 718.5517,
+            "R2": 0.7709,
+            "MedAE": 103.1962,
+            "MAPE": 11.771
+        },
+        "LightGBM": {
+            "MAE": 179.5743,
+            "RMSE": 640.0836,
+            "R2": 0.8182,
+            "MedAE": 74.5161,
+            "MAPE": 8.4429
+        },
+        "CatBoost": {
+            "MAE": 133.4888,
+            "RMSE": 607.0628,
+            "R2": 0.8365,
+            "MedAE": 58.1793,
+            "MAPE": 7.0897
+        }
+    },
+    "feature_count": 33
+}

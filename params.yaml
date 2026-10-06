@@ -1,0 +1,50 @@
+prepare:
+  raw_train_path: "data/raw/train-test.csv"
+  processed_train_path: "data/processed/train_cleaned.csv"
+  clip_rate_min: 50.0
+  clip_rate_max: 26000.0
+
+features:
+  input_path: "data/processed/train_cleaned.csv"
+  output_path: "data/processed/train_features.csv"
+  pipeline_path: "models/feature_pipeline.joblib"
+
+train:
+  input_path: "data/processed/train_features.csv"
+  model_output_path: "models/best_model.joblib"
+  metrics_output_path: "metrics/train_metrics.json"
+  target_column: "posted_rate"
+  n_splits: 5
+  random_state: 42
+  models_to_train:
+    - ridge
+    - xgboost
+    - lightgbm
+    - catboost
+  xgboost:
+    n_estimators: 500
+    learning_rate: 0.05
+    max_depth: 6
+    subsample: 0.8
+    colsample_bytree: 0.8
+  lightgbm:
+    n_estimators: 500
+    learning_rate: 0.05
+    num_leaves: 31
+    subsample: 0.8
+    colsample_bytree: 0.8
+  catboost:
+    iterations: 500
+    learning_rate: 0.05
+    depth: 6
+    verbose: 0
+
+evaluate:
+  model_path: "models/best_model.joblib"
+  metrics_output_path: "metrics/eval_metrics.json"
+
+predict:
+  validation_input: "data/raw/validation.csv"
+  december_input: "data/raw/december-chart-inputs.csv"
+  validation_output: "validation_predictions.csv"
+  december_output: "data/december_chart_inputs.csv"

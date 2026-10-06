@@ -1,0 +1,57 @@
+stages:
+  clean:
+    cmd: python -m src.data.clean
+    deps:
+      - data/raw/train-test.csv
+      - src/data/clean.py
+    params:
+      - prepare
+    outs:
+      - data/processed/train_cleaned.csv
+
+  features:
+    cmd: python -m src.data.features
+    deps:
+      - data/processed/train_cleaned.csv
+      - src/data/features.py
+    params:
+      - features
+    outs:
+      - data/processed/train_features.csv
+      - models/feature_pipeline.joblib
+
+  train:
+    cmd: python -m src.models.train
+    deps:
+      - data/processed/train_features.csv
+      - src/models/train.py
+    params:
+      - train
+    outs:
+      - models/best_model.joblib
+    metrics:
+      - metrics/train_metrics.json:
+          cache: false
+
+  evaluate:
+    cmd: python -m src.models.evaluate
+    deps:
+      - models/best_model.joblib
+      - data/processed/train_features.csv
+      - src/models/evaluate.py
+    params:
+      - evaluate
+
+  predict:
+    cmd: python -m src.models.predict
+    deps:
+      - models/best_model.joblib
+      - models/feature_pipeline.joblib
+      - data/raw/validation.csv
+      - data/raw/december-chart-inputs.csv
+      - src/models/predict.py
+    params:
+      - predict
+    outs:
+      - validation_predictions.csv
+      - data/december_chart_inputs.csv
